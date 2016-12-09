@@ -3,10 +3,10 @@ DEMO_NAME=clatchdemo
 CPP=g++
 NVCC=nvcc
 ARCH=sm_30
-INC=-I/usr/local/cuda/include/ -I/media/ubuntu/Data/liming/opencv3/include
+INC=-I/usr/local/cuda/include/ -I/home/liming/opencv3/include
 NVCCFLAGS=-Wall -Wextra -Werror -Wshadow -Ofast -fomit-frame-pointer -march=native -funroll-all-loops -fpeel-loops -ftracer -ftree-vectorize -fPIC
 CPPFLAGS=-Wall -Wextra -Werror -Wshadow -pedantic -Ofast -std=c++11 -fomit-frame-pointer -march=native -flto -funroll-all-loops -fpeel-loops -ftracer -ftree-vectorize -fPIC
-LIBS=-L/usr/local/cuda/lib64 -L/media/ubuntu/Data/liming/opencv3/lib -lcudart -lopencv_core -lopencv_ml -lopencv_cudafeatures2d -lopencv_features2d -lopencv_flann -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs -lpthread
+LIBS=-L/usr/local/cuda/lib64 -L/home/liming/opencv3/lib -lcudart -lopencv_core -lopencv_ml -lopencv_cudafeatures2d -lopencv_features2d -lopencv_flann -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs -lpthread
 CPPSOURCES=$(wildcard *.cpp)
 CUSOURCES=$(wildcard *.cu)
 
