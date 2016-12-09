@@ -50,9 +50,9 @@ __global__ void
 #ifndef __INTELLISENSE__
 __launch_bounds__(512, 4)
 #endif
-CLATCH_kernel(const cudaTextureObject_t d_img_tex, const cudaTextureObject_t d_triplets, const KeyPoint* const __restrict d_kps, uint32_t* const __restrict__ d_desc) {
+CLATCH_kernel(const cudaTextureObject_t d_img_tex, const cudaTextureObject_t d_triplets, const CLATCHKeyPoint* const __restrict d_kps, uint32_t* const __restrict__ d_desc) {
 	volatile __shared__ uint8_t s_ROI[4608];
-	const KeyPoint pt = d_kps[blockIdx.x];
+	const CLATCHKeyPoint pt = d_kps[blockIdx.x];
 	const float s = sin(pt.angle), c = cos(pt.angle);
 	for (int32_t i = 0; i <= 48; i += 16) {
 		for (int32_t k = 0; k <= 32; k += 32) {
@@ -83,7 +83,7 @@ CLATCH_kernel(const cudaTextureObject_t d_img_tex, const cudaTextureObject_t d_t
 	if (threadIdx.x == 0) d_desc[(blockIdx.x << 4) + threadIdx.y] = desc;
 }
 
-void CLATCH(const cudaTextureObject_t d_img_tex, const cudaTextureObject_t d_triplets, const KeyPoint* const __restrict d_kps, const int num_kps, uint64_t* const __restrict d_desc) {
+void CLATCH(const cudaTextureObject_t d_img_tex, const cudaTextureObject_t d_triplets, const CLATCHKeyPoint* const __restrict d_kps, const int num_kps, uint64_t* const __restrict d_desc) {
 	CLATCH_kernel<<<num_kps, { 32, 16 } >>>(d_img_tex, d_triplets, d_kps, reinterpret_cast<uint32_t*>(d_desc));
 	cudaDeviceSynchronize();
 }
